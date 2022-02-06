@@ -1,0 +1,69 @@
+.layout{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:center;
+    padding: 50px;
+    row-gap: 20px;
+    column-gap: 20px;
+
+}
+
+.movie{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 200px;
+    background:none;
+    border: none;
+    text-align: start;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 24px;
+    /* identical to box height, or 150% */
+
+    display: flex;
+    align-items: center;
+
+}
+
+// .button-details{
+//     display: flex;
+//     justify-content:center;
+//     text-align: center;
+ 
+    
+//     >button{
+//         display: flex;
+//         justify-content: center;
+       
+//         // background: #fff;
+//         font-size: 1rem;
+//         max-width: 15rem;
+//         cursor: pointer;
+
+//         &:hover {
+//             box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+//           }
+//     }
+// }
+
+.Card{
+    justify-content:center;
+}
+
+.button-pagination{
+    padding:9px;
+    background:none;
+    border:none;
+    font-weight:bold;
+    font-size:14px;
+    color:#5C16C5
+}
+
+.atual{
+    border:1px solid;
+    color:#5C16C5
+}
