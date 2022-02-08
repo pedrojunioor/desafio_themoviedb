@@ -9,9 +9,9 @@ const Header = () => {
 
     const { filters, handleActive, movies, getPopularMovies} = useContext(Context);
 
-    useEffect(() =>{
-        console.log(filters)
-    },[filters])
+    
+
+
     
     function showFilter() {
         return filters.map((item, i) => {

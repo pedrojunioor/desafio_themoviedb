@@ -9,6 +9,7 @@ import { showGenres } from '../../utils/showGenres'
 import { showRuntime } from '../../utils/showRuntime'
 import Recomendations from '../Recomendations/Recomendations'
 import Cast from '../Cast/Cast'
+import Trailler from '../Trailler/Trailler'
 
 import api from '../../config/api'
 
@@ -22,18 +23,19 @@ const HeaderDetails = () => {
     const [crew, setCrew] = useState(undefined)
     const [recommendations, setRecommendations] = useState(undefined)
     const [videos, setVideos] = useState(undefined)
+    const [trailer,setTrailer] = useState(undefined)
 
     useEffect(() => {
 
         api.get(`movie/${movie.id}/recommendations?api_key=${API_KEY}`).then(result => {
-          
+
             setRecommendations(result.data.results.slice(1, 7))
         }).catch(error => {
             console.log(error)
         })
 
         api.get(`movie/${movie.id}/videos?api_key=${API_KEY}`).then(result => {
-        
+
             setVideos(result.data.results)
         }).catch(error => {
             console.log(error)
@@ -48,7 +50,7 @@ const HeaderDetails = () => {
     }, [movie])
 
     useEffect(() => {
-       
+
         if (movie === undefined) {
             history.push('/')
         }
@@ -56,11 +58,16 @@ const HeaderDetails = () => {
 
 
     useEffect(() => {
-        if (crew !== undefined) {
-
-            showMetaInfo()
+        if (videos !== undefined) {
+            {console.log(videos)}
+            let trailer = videos.filter(item => {
+                if(item.name.includes('Trailer')){
+                    return item
+                }
+            })
+            setTrailer(trailer)
         }
-    }, [crew])
+    }, [videos])
 
     function showMetaInfo() {
 
@@ -139,6 +146,10 @@ const HeaderDetails = () => {
                     <div >
                         {movie && <Cast cast={cast} />}
                     </div>
+                    <div>
+                        {trailer && <Trailler trailer={trailer}/>}        
+                    </div>
+
                     <div >
                         {movie && <Recomendations recommendations={recommendations} />}
                     </div>

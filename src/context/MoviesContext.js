@@ -21,18 +21,22 @@ function MoviesProvider({ children }) {
         }
     })
 
-    const [filters, setFilters] = useState([
-        {   
-            id: '1',
-            filter: 'Pedro',
-            active: false
-        },
-        {
-            id:'2',
-            filter: 'Junior',
-            active: false
-        },
-    ])
+    const [filters, setFilters] = useState([])
+
+    const [ativos,setAtivos] = useState([])
+
+    useEffect(() =>{
+        let ativos = filters.filter(item => {
+            if (item.active === true) {
+                return item
+            }
+        })
+        setAtivos(ativos)
+    },[filters])
+
+    useEffect(() =>{
+        console.log(ativos)
+    },[ativos])
 
     useEffect(() =>{
         if(genres !== undefined){
@@ -75,6 +79,8 @@ function MoviesProvider({ children }) {
     }, [movies])
 
 
+
+
     function getPopularMovies() {
         api.get(`movie/popular?api_key=${API_KEY}&page=${currentPage}`).then(result => {
             setMovies(result.data.results)
@@ -82,6 +88,9 @@ function MoviesProvider({ children }) {
             console.log(error)
         })
     }
+
+
+    
 
     function handleJoinMovie(id) {
         api.get(`movie/${id}?api_key=${API_KEY}&page=${currentPage}`).then(result => {
@@ -117,6 +126,7 @@ function MoviesProvider({ children }) {
             movie,
             currentPage,
             genres,
+            ativos,
             handlePageUp,
             handlePageDown,
             handlePage,

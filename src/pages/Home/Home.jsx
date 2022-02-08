@@ -8,7 +8,7 @@ import {showData} from '../../utils/showData'
 
 function Home() {
 
-    const { movies, getPopularMovies, currentPage, handlePageUp, handlePageDown, handlePage, handleJoinMovie } = useContext(Context);
+    const { ativos, movies, getPopularMovies, currentPage, handlePageUp, handlePageDown, handlePage, handleJoinMovie } = useContext(Context);
 
     useEffect(() => {
         getPopularMovies();
@@ -54,6 +54,7 @@ function Home() {
 
     function showMovies() {
         return movies.map((item, i) => {
+            
             return <button
                 key={i} className="movie"
                 onClick={e => handleJoinMovie(item.id)}>
@@ -76,8 +77,8 @@ function Home() {
 
             <div>
 
-
-                <div style={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
+       
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', paddingBottom: '50px'}}>
 
                     {currentPage > 1 && <button className="button-pagination" onClick={handlePageDown}> &lt;  </button>}
                     {barPagination(currentPage)}
