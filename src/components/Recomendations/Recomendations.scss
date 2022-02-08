@@ -1,0 +1,31 @@
+
+
+.layout-recommendations{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding-top: 10px;
+    // padding-right: 50px;
+    // row-gap: 20px;
+    background: #E5E5E5;
+}
+
+.recommendations{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: none;
+    text-align: start;
+    border-radius: 4px;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 24px;
+    /* identical to box height, or 150% */
+
+    align-items: center;
+
+}
+

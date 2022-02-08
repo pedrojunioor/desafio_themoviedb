@@ -2,23 +2,16 @@ import React, { useContext, useEffect, useState } from 'react';
 import './Header.scss';
 import { Link } from 'react-router-dom';
 import { Context } from '../../context/MoviesContext';
+import api from '../../config/api';
 
 
 const Header = () => {
 
     const { filters, handleActive, movies, getPopularMovies} = useContext(Context);
 
-    useEffect(() => {
+    useEffect(() =>{
         console.log(filters)
-        console.log(movies)
-    }, [filters])
-    
-    useEffect(() => {
-        console.log(movies)
-    }, [movies])
-
-
-
+    },[filters])
     
     function showFilter() {
         return filters.map((item, i) => {

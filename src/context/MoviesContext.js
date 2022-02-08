@@ -9,16 +9,44 @@ function MoviesProvider({ children }) {
     const [movies, setMovies] = useState(undefined)
     const [movie, setMovie] = useState(undefined)
     const [currentPage, setCurrentPage] = useState(1)
+    const [genres,setGenres] = useState(undefined)
+
+    useEffect(()=>{
+        if(genres === undefined){
+            api.get(`genre/movie/list?api_key=${API_KEY}`).then(result => {
+                setGenres(result.data.genres)
+            }).catch(error => {
+                console.log(error)
+            })
+        }
+    })
+
     const [filters, setFilters] = useState([
-        {
+        {   
+            id: '1',
             filter: 'Pedro',
             active: false
         },
         {
+            id:'2',
             filter: 'Junior',
             active: false
         },
     ])
+
+    useEffect(() =>{
+        if(genres !== undefined){
+            let filters = genres.map(item =>{
+                return {
+                    id: item.id,
+                    filter: item.name,
+                    active: false
+                }
+            })
+            setFilters(filters)
+        }
+    },[genres])
+
 
     function handleActive(filter) {
         let result = filters.map(item => {
@@ -49,7 +77,6 @@ function MoviesProvider({ children }) {
 
     function getPopularMovies() {
         api.get(`movie/popular?api_key=${API_KEY}&page=${currentPage}`).then(result => {
-            console.log(result.data)
             setMovies(result.data.results)
         }).catch(error => {
             console.log(error)
@@ -89,6 +116,7 @@ function MoviesProvider({ children }) {
             movies,
             movie,
             currentPage,
+            genres,
             handlePageUp,
             handlePageDown,
             handlePage,
