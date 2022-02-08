@@ -4,17 +4,17 @@ import { Context } from '../../context/MoviesContext';
 import Card from '../../components/Card/Card'
 import Button from '../../components/Button/Button'
 import Header from '../../components/Header/Header'
-import {showData} from '../../utils/showData'
+import { showData } from '../../utils/showData'
 
 function Home() {
 
-    const { ativos, movies, getPopularMovies, currentPage, handlePageUp, handlePageDown, handlePage, handleJoinMovie } = useContext(Context);
+    const { moviesFiltered, ativos, movies, getPopularMovies, currentPage, handlePageUp, handlePageDown, handlePage, handleJoinMovie } = useContext(Context);
 
     useEffect(() => {
         getPopularMovies();
     }, [currentPage])
 
-    
+
 
     function range(size, startAt = 0) {
         return [...Array(size).keys()].map(i => i + startAt);
@@ -53,18 +53,34 @@ function Home() {
     }
 
     function showMovies() {
-        return movies.map((item, i) => {
-            
-            return <button
-                key={i} className="movie"
-                onClick={e => handleJoinMovie(item.id)}>
-                <Card>
-                    <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`} alt="poster" />
-                    <p style={{ fontWeight: 'bold' }}>{item.original_title}</p>
-                    <p style={{ fontWeight: 'bold', color: '#646464' }}>{showData(item.release_date)}</p>
-                </Card>
-            </button>
-        })
+        if (moviesFiltered !== undefined) {
+            return moviesFiltered.map((item, i) => {
+
+                return <button
+                    key={i} className="movie"
+                    onClick={e => handleJoinMovie(item.id)}>
+                    <Card>
+                        <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`} alt="poster" />
+                        <p style={{ fontWeight: 'bold' }}>{item.original_title}</p>
+                        <p style={{ fontWeight: 'bold', color: '#646464' }}>{showData(item.release_date)}</p>
+                    </Card>
+                </button>
+            })
+        }
+        else {
+            return movies.map((item, i) => {
+
+                return <button
+                    key={i} className="movie"
+                    onClick={e => handleJoinMovie(item.id)}>
+                    <Card>
+                        <img src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`} alt="poster" />
+                        <p style={{ fontWeight: 'bold' }}>{item.original_title}</p>
+                        <p style={{ fontWeight: 'bold', color: '#646464' }}>{showData(item.release_date)}</p>
+                    </Card>
+                </button>
+            })
+        }
     }
 
     return (
@@ -77,13 +93,13 @@ function Home() {
 
             <div>
 
-       
-                <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', paddingBottom: '50px'}}>
+
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', paddingBottom: '50px' }}>
 
                     {currentPage > 1 && <button className="button-pagination" onClick={handlePageDown}> &lt;  </button>}
                     {barPagination(currentPage)}
                     {currentPage < 1000 && <button className="button-pagination" onClick={handlePageUp}> &gt;  </button>}
-                   
+
 
                 </div>
             </div>

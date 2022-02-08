@@ -7,12 +7,13 @@ const Context = createContext();
 function MoviesProvider({ children }) {
 
     const [movies, setMovies] = useState(undefined)
+    const [moviesFiltered,setMoviesFiltered] = useState(undefined)
     const [movie, setMovie] = useState(undefined)
     const [currentPage, setCurrentPage] = useState(1)
-    const [genres,setGenres] = useState(undefined)
+    const [genres, setGenres] = useState(undefined)
 
-    useEffect(()=>{
-        if(genres === undefined){
+    useEffect(() => {
+        if (genres === undefined) {
             api.get(`genre/movie/list?api_key=${API_KEY}`).then(result => {
                 setGenres(result.data.genres)
             }).catch(error => {
@@ -23,24 +24,29 @@ function MoviesProvider({ children }) {
 
     const [filters, setFilters] = useState([])
 
-    const [ativos,setAtivos] = useState([])
+    const [ativos, setAtivos] = useState([])
 
-    useEffect(() =>{
+    useEffect(() => {
+
         let ativos = filters.filter(item => {
             if (item.active === true) {
                 return item
             }
         })
-        setAtivos(ativos)
-    },[filters])
+        let idAtivos = ativos.map(item => {
+            return item.id
+        })
+        setAtivos(idAtivos)
+    }, [filters])
 
-    useEffect(() =>{
-        console.log(ativos)
-    },[ativos])
 
-    useEffect(() =>{
-        if(genres !== undefined){
-            let filters = genres.map(item =>{
+    useEffect(() => {
+        console.log('IDs Ativos', ativos)
+    }, [ativos])
+
+    useEffect(() => {
+        if (genres !== undefined) {
+            let filters = genres.map(item => {
                 return {
                     id: item.id,
                     filter: item.name,
@@ -49,19 +55,21 @@ function MoviesProvider({ children }) {
             })
             setFilters(filters)
         }
-    },[genres])
+    }, [genres])
 
 
     function handleActive(filter) {
         let result = filters.map(item => {
             if (item.filter === filter) {
                 return {
+                    id: item.id,
                     filter: filter,
                     active: !item.active
                 }
             }
             else {
                 return {
+                    id: item.id,
                     filter: item.filter,
                     active: item.active
                 }
@@ -89,8 +97,32 @@ function MoviesProvider({ children }) {
         })
     }
 
+    useEffect(() => {
+        console.log('filtrados',filterMovies())
+        setMoviesFiltered(filterMovies())
+    }, [ativos])
 
-    
+    function filterMovies() {
+        if (ativos.length > 0) {
+            if (movies !== undefined) {
+                
+                let filtered = movies.filter(item => {
+                    for(let i = 0; i < item.genre_ids.length; i++){
+                        if(ativos.includes(item.genre_ids[i])){
+                            return item
+                        }
+                    }
+                })
+                return filtered
+            }
+        }
+        else {
+            return getPopularMovies();
+        }
+    }
+
+
+
 
     function handleJoinMovie(id) {
         api.get(`movie/${id}?api_key=${API_KEY}&page=${currentPage}`).then(result => {
@@ -127,6 +159,7 @@ function MoviesProvider({ children }) {
             currentPage,
             genres,
             ativos,
+            moviesFiltered,
             handlePageUp,
             handlePageDown,
             handlePage,

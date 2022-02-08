@@ -11,7 +11,7 @@ export default function Cast(props) {
         if (props.cast !== undefined) {
             return props.cast.map((item, i) => {
                 return <div key={i} className="cast">
-                    <Card className="cast-card">
+                    <Card style={{width: '100%', height: '100%', margin:'0'}}>
                         <div style={{ width: '175px' }}>
                             <img style={{ maxWidth: '100%', maxHeight: '100%', padding: '2px' }} src={`https://image.tmdb.org/t/p/w500/${item.profile_path}`} alt="poster" />
                         </div>
