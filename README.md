@@ -12,6 +12,8 @@ A seguir alguns dos requitios funcionais:
 - O usuário deve ter acesso a uma outra página com detalhes sobre o filme, ao clicar em um item na listagem
 - O usuário deve conseguir voltar para a página de listagem de filmes com os filtros ainda ativos
 
+Você pode voltar a pagina inicial clicando na logo no canto esquerdo da barra superior.
+
 ## Libs utilizadas
 
 - react-router-dom que é uma lib para controle de rotas 
