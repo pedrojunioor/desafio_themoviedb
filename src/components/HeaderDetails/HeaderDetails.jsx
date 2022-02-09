@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import './HeaderDetails.scss';
-import { Link } from 'react-router-dom';
 import { Context } from '../../context/MoviesContext';
-import Card from '../../components/Card/Card'
 import history from '../../history'
 import { showData } from '../../utils/showData'
 import { showGenres } from '../../utils/showGenres'
@@ -35,7 +33,6 @@ const HeaderDetails = () => {
         })
 
         api.get(`movie/${movie.id}/videos?api_key=${API_KEY}`).then(result => {
-
             setVideos(result.data.results)
         }).catch(error => {
             console.log(error)
@@ -59,7 +56,6 @@ const HeaderDetails = () => {
 
     useEffect(() => {
         if (videos !== undefined) {
-            {console.log(videos)}
             let trailer = videos.filter(item => {
                 if(item.name.includes('Trailer')){
                     return item

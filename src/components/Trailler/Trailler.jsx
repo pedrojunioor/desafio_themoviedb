@@ -3,10 +3,6 @@ import './Trailler.scss'
 
 export default function Trailler(props) {
 
-    useEffect(() => {
-        console.log(props)
-    })
-
     return (
         <div className="trailler">
             <h2>Trailler</h2>

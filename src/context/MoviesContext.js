@@ -39,11 +39,6 @@ function MoviesProvider({ children }) {
         setAtivos(idAtivos)
     }, [filters])
 
-
-    useEffect(() => {
-        console.log('IDs Ativos', ativos)
-    }, [ativos])
-
     useEffect(() => {
         if (genres !== undefined) {
             let filters = genres.map(item => {
@@ -98,7 +93,6 @@ function MoviesProvider({ children }) {
     }
 
     useEffect(() => {
-        console.log('filtrados',filterMovies())
         setMoviesFiltered(filterMovies())
     }, [ativos])
 
