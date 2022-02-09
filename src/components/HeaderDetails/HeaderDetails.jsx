@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom'
 import './HeaderDetails.scss';
 import { Context } from '../../context/MoviesContext';
 import history from '../../history'
@@ -15,49 +16,65 @@ import api from '../../config/api'
 const HeaderDetails = () => {
 
     let API_KEY = process.env.REACT_APP_API_KEY
-    const { movie } = useContext(Context);
+    const { movie, handleJoinMovieDefault } = useContext(Context);
+
+    const { id } = useParams()
 
     const [cast, setCast] = useState(undefined)
     const [crew, setCrew] = useState(undefined)
     const [recommendations, setRecommendations] = useState(undefined)
     const [videos, setVideos] = useState(undefined)
-    const [trailer,setTrailer] = useState(undefined)
+    const [trailer, setTrailer] = useState(undefined)
+    const [releaseDates, setReleaseDates] = useState(undefined)
+
+
+    useEffect(() => {
+        if (id !== undefined) {
+            handleJoinMovieDefault(id)
+        }
+    }, [id])
+
+    useEffect(()=>{
+        console.log('releaseDates',releaseDates)
+    },[releaseDates])
+
 
     useEffect(() => {
 
-        api.get(`movie/${movie.id}/recommendations?api_key=${API_KEY}`).then(result => {
+        if (movie !== undefined) {
 
-            setRecommendations(result.data.results.slice(1, 7))
-        }).catch(error => {
-            console.log(error)
-        })
+            api.get(`movie/${movie.id}/recommendations?api_key=${API_KEY}`).then(result => {
 
-        api.get(`movie/${movie.id}/videos?api_key=${API_KEY}`).then(result => {
-            setVideos(result.data.results)
-        }).catch(error => {
-            console.log(error)
-        })
-        api.get(`movie/${movie.id}/credits?api_key=${API_KEY}`).then(result => {
-            setCast(result.data.cast)
-            setCrew(result.data.crew)
-        }).catch(error => {
-            console.log(error)
-        })
+                setRecommendations(result.data.results.slice(1, 7))
+            }).catch(error => {
+                console.log(error)
+            })
+
+            api.get(`movie/${movie.id}/videos?api_key=${API_KEY}`).then(result => {
+                setVideos(result.data.results)
+            }).catch(error => {
+                console.log(error)
+            })
+            api.get(`movie/${movie.id}/credits?api_key=${API_KEY}`).then(result => {
+                setCast(result.data.cast)
+                setCrew(result.data.crew)
+            }).catch(error => {
+                console.log(error)
+            })
+
+            api.get(`movie/${movie.id}/release_dates?api_key=${API_KEY}`).then(result => {
+                setReleaseDates(result)
+            }).catch(error => {
+                console.log(error)
+            })
+        }
 
     }, [movie])
 
     useEffect(() => {
-
-        if (movie === undefined) {
-            history.push('/')
-        }
-    }, [movie]);
-
-
-    useEffect(() => {
         if (videos !== undefined) {
             let trailer = videos.filter(item => {
-                if(item.name.includes('Trailer')){
+                if (item.name.includes('Trailer')) {
                     return item
                 }
             })
@@ -123,12 +140,11 @@ const HeaderDetails = () => {
                         </div>
                         <div className="info">
                             <div className="info-details">
-                                <span>{movie.title}</span>
+                                <span style={{ textAlign: 'left' }}>{movie.title}</span>
                                 <h4>{`${showData(movie.release_date)} - ${movie.original_language} - ${showGenres(movie)} - ${showRuntime(movie)}`}</h4>
-                                <label htmlFor="">
-                                    <progress value={movie.vote_average * 10} max="100">{movie.vote_average}</progress>
-                                    {movie.vote_average * 10}% Avaliação dos usuários
+                                <label htmlFor="vote">{movie.vote_average * 10}% Avaliação dos usuários:
                                 </label>
+                                <progress id="vote" value={movie.vote_average * 10} max="100">{movie.vote_average}</progress>
                                 <h3>Sinopse</h3>
                                 <p>{movie.overview}</p>
                             </div>
@@ -143,7 +159,7 @@ const HeaderDetails = () => {
                         {movie && <Cast cast={cast} />}
                     </div>
                     <div>
-                        {trailer && <Trailler trailer={trailer}/>}        
+                        {trailer && <Trailler trailer={trailer} />}
                     </div>
 
                     <div >

@@ -81,9 +81,6 @@ function MoviesProvider({ children }) {
         }
     }, [movies])
 
-
-
-
     function getPopularMovies() {
         api.get(`movie/popular?api_key=${API_KEY}&page=${currentPage}`).then(result => {
             setMovies(result.data.results)
@@ -125,8 +122,14 @@ function MoviesProvider({ children }) {
         }).catch(error => {
             console.log(error)
         })
+    }
 
-
+    function handleJoinMovieDefault(id) {
+        api.get(`movie/${id}?api_key=${API_KEY}&page=${currentPage}`).then(result => {
+            setMovie(result.data)
+        }).catch(error => {
+            console.log(error)
+        })
     }
 
     function handlePageUp() {
@@ -159,7 +162,8 @@ function MoviesProvider({ children }) {
             handlePage,
             handleActive,
             getPopularMovies,
-            handleJoinMovie
+            handleJoinMovie,
+            handleJoinMovieDefault
         }}>
             {children}
         </Context.Provider>
