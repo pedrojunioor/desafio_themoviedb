@@ -1,70 +1,35 @@
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App]
 
-## Available Scripts
+## Informações úteis
 
-In the project directory, you can run:
+Este projeto foi desenvolvido como desafio proposto em um processo seletivo.
 
-### `npm start`
+O desafio consistia em:
+Usando a API de filmes gratuita themoviedb criar uma listagem dos filmes mais populares do dia, consultando o endpoint GET /movie/popular para realizar a listagem. 
+Ao clicar em um item dessa listagem, outra página com os detalhes do filme escolhido deve ser exibida. 
+A seguir alguns dos requitios funcionais:
+- O usuário deve ter acesso a uma listagem dos filmes mais populares do dia
+- O usuário deve conseguir paginar a lista para encontrar novos filmes
+- O usuário deve ter acesso a uma outra página com detalhes sobre o filme, ao clicar em um item na listagem
+- O usuário deve conseguir voltar para a página de listagem de filmes com os filtros ainda ativos
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Libs utilizadas
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- react-router-dom que é uma lib para controle de rotas 
+- sass para deixar o uso do css mais fácil
+- dotenv para esconder as variaveis pessoais que não fazem sentido ser compartilhadas 
+- axios para fazer as requisições HTTP para API
 
-### `npm test`
+Para controle de estados compartilhados entre os componentes fiz uso do Context API e useContext que é uma alternativa mais simples e que atendeu as necessidades deste projeto.
+Para conseguir fazer as requisições vocÊ precisará de uma API KEY que você pode ver como conseguir uma neste link https://developers.themoviedb.org/3/getting-started/introduction.
+Em posse da API KEY, é só criar um arquivo com o nome .env.local na raiz do projeto e criar a variavel REACT_APP_API_KEY='SUA_CHAVE'
+Obs. Ao criar a variavel depois do simbolo de = a chave deve ser inserida sem aspas simples ou duplas.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Você pode executar fácilmente na sua maquina, clonando o projeto ou baixando o ZIP.
+Na pasta do projeto você vai precisar apenas de 2(dois) comandos para subir aplicação
+- npm install
+- npm start
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Você deverá acessar http://localhost:3000](http://localhost:3000) para ver a aplicação no seu browser.
