@@ -4,11 +4,8 @@ This project was bootstrapped with [Create React App]
 
 ## Informações úteis
 
-Este projeto foi desenvolvido como desafio proposto em um processo seletivo.
-
-O desafio consistia em:
-Usando a API de filmes gratuita themoviedb criar uma listagem dos filmes mais populares do dia, consultando o endpoint GET /movie/popular para realizar a listagem. 
-Ao clicar em um item dessa listagem, outra página com os detalhes do filme escolhido deve ser exibida. 
+Usando a API de filmes gratuita themoviedb foi criado uma listagem dos filmes mais populares do dia, consultando o endpoint GET /movie/popular para realizar a listagem. 
+Ao clicar em um item dessa listagem, outra página com os detalhes do filme escolhido é exibida. 
 A seguir alguns dos requitios funcionais:
 - O usuário deve ter acesso a uma listagem dos filmes mais populares do dia
 - O usuário deve conseguir paginar a lista para encontrar novos filmes
