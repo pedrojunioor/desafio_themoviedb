@@ -28,7 +28,7 @@ export default function Trailler(props) {
                             type="text/html"
                             width="907"
                             height="510"
-                            src={`http://www.youtube.com/embed/${trailer[0].key}?autoplay=0&origin=http://example.com`}
+                            src={`https://www.youtube.com/embed/${trailer[0].key}?autoplay=0&origin=http://example.com`}
                             frameborder="0" />}
                 </div>
             }
