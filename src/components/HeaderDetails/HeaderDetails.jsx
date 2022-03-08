@@ -159,7 +159,9 @@ const HeaderDetails = () => {
                         {movie && <Cast cast={cast} />}
                     </div>
                     <div>
-                        {trailer && <Trailler trailer={trailer} />}
+                        {console.log('----->',trailer)}
+                        {trailer !== undefined && <Trailler trailer={trailer} />}
+                        
                     </div>
 
                     <div >

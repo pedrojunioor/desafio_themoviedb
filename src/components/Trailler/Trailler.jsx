@@ -3,9 +3,12 @@ import './Trailler.scss'
 
 export default function Trailler(props) {
 
+    console.log('->',props)
+
     return (
         <div className="trailler">
             <h2>Trailler</h2>
+            {console.log('AAA',props.trailer)}
             {props.trailer[0].key &&
 
             <iframe

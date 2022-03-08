@@ -7,20 +7,21 @@ import api from '../../config/api';
 
 const Header = () => {
 
-    const { filters, handleActive, movies, getPopularMovies} = useContext(Context);
-
-    
+    const { filters, handleActive, movies, getPopularMovies } = useContext(Context);
 
 
-    
+
+
+
     function showFilter() {
         return filters.map((item, i) => {
             if (item.active === true) {
                 return <button
+                    key={i}
                     className="button-filter active"
                     onClick={() => { handleActive(item.filter) }}
-                    >
-                    <div style={{display:'flex', gap: '10px', alignItems: 'center', justifyContent:'space-around'}}>
+                >
+                    <div style={{ display: 'flex', gap: '10px', alignItems: 'center', justifyContent: 'space-around' }}>
                         <p>
                             {item.filter}
                         </p>
@@ -30,6 +31,7 @@ const Header = () => {
             }
             else {
                 return <button
+                    key={i}
                     className="button-filter"
                     onClick={() => { handleActive(item.filter) }}>
                     <div>

@@ -33,16 +33,16 @@ function Home() {
             pages = range(5, 955)
         }
 
-        return pages.map(item => {
+        return pages.map((item,i) => {
             if (item === currentPage) {
-                return <button className="button-pagination atual"
+                return <button key={i} className="button-pagination atual"
                     onClick={() => handlePage(item)}
                 >
                     {item}
                 </button>
             }
             else {
-                return <button className="button-pagination"
+                return <button key={i} className="button-pagination"
                     onClick={() => handlePage(item)}
                 >
                     {item}
