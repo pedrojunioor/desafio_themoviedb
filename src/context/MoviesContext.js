@@ -73,7 +73,7 @@ function MoviesProvider({ children }) {
         setFilters(result)
     }
 
-    let API_KEY = process.env.REACT_APP_API_KEY
+    let API_KEY = process.env.REACT_APP_API_KEY_MOVIE
 
     useEffect(() => {
         if (movies === undefined) {

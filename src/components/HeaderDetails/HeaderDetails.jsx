@@ -15,7 +15,7 @@ import api from '../../config/api'
 
 const HeaderDetails = () => {
 
-    let API_KEY = process.env.REACT_APP_API_KEY
+    let API_KEY = process.env.REACT_APP_API_KEY_MOVIE
     const { movie, handleJoinMovieDefault } = useContext(Context);
 
     const { id } = useParams()
@@ -23,7 +23,6 @@ const HeaderDetails = () => {
     const [cast, setCast] = useState(undefined)
     const [crew, setCrew] = useState(undefined)
     const [recommendations, setRecommendations] = useState(undefined)
-    const [videos, setVideos] = useState(undefined)
     const [trailer, setTrailer] = useState(undefined)
     const [releaseDates, setReleaseDates] = useState(undefined)
 
@@ -34,24 +33,24 @@ const HeaderDetails = () => {
         }
     }, [id])
 
-    useEffect(()=>{
-        console.log('releaseDates',releaseDates)
-    },[releaseDates])
-
 
     useEffect(() => {
 
         if (movie !== undefined) {
 
             api.get(`movie/${movie.id}/recommendations?api_key=${API_KEY}`).then(result => {
-
                 setRecommendations(result.data.results.slice(1, 7))
             }).catch(error => {
                 console.log(error)
             })
 
             api.get(`movie/${movie.id}/videos?api_key=${API_KEY}`).then(result => {
-                setVideos(result.data.results)
+                let trailer = result.data.results.filter(item => {
+                    if (item.type.includes('Trailer')) {
+                        return item
+                    }
+                })
+                setTrailer(trailer)
             }).catch(error => {
                 console.log(error)
             })
@@ -71,16 +70,6 @@ const HeaderDetails = () => {
 
     }, [movie])
 
-    useEffect(() => {
-        if (videos !== undefined) {
-            let trailer = videos.filter(item => {
-                if (item.name.includes('Trailer')) {
-                    return item
-                }
-            })
-            setTrailer(trailer)
-        }
-    }, [videos])
 
     function showMetaInfo() {
 
@@ -159,7 +148,6 @@ const HeaderDetails = () => {
                         {movie && <Cast cast={cast} />}
                     </div>
                     <div>
-                        {console.log('----->',trailer)}
                         {trailer !== undefined && <Trailler trailer={trailer} />}
                         
                     </div>
